@@ -28,13 +28,6 @@ int search_up(char matrix[][MAX], char word[], int i, int j, int k){
     }
     return 0 ;
 }
-
-int search_down(char matrix[][MAX], char word[], int i, int j, int k){
-    if (matrix[i][j+1] == word[k]){
-        return 1 ;        
-    }
-    return 0 ;
-}
         
 int compare_left(int i, int j, char matrix[][MAX], int collum, char word[]){
     for(; word[j] != '\0'; j--){
@@ -59,7 +52,6 @@ int compare_right(int i, int j, char matrix[][MAX], int collum, char word[]){
             }
         }
     }
-    return 1 ;
 }
 
 int compare_up(int i, int j, char matrix[][MAX], int line, char word[]){
@@ -91,7 +83,7 @@ int second(char matrix[][MAX], char word[], int i, int j, int k, int line, int c
 
     if (search_left(matrix, word, i, j, k)==1){
         if (compare_left(i, j, matrix, collum, word)==1){
-            printf("A palavra %s está no texto!", word) ;
+            printf("A palavra %s está no texto!",  word[LENGTH] ;word) ;
             return 1 ;
         }
 
@@ -104,14 +96,8 @@ int second(char matrix[][MAX], char word[], int i, int j, int k, int line, int c
     } if (search_right(matrix, word, i, j, k)==1){
         if (compare_right(i, j, matrix, collum, word)==1){
             printf("A palavra %s está no texto!", word) ;
-            return 1 ;
         }
-    } if (search_down(matrix, word, i, j, k)==1){
-        if (compare_down(i, j, matrix, line, word)==1){
-            printf("A palavra %s está no texto!", word) ;
-            return 1 ;
-        }
-
+    }
     return 0 ;
 }
 
@@ -128,7 +114,7 @@ void clean_word(char word[]){
 int main(){
     int line, collum, amount_words ;
     scanf("%d %d %d ", &line, &collum, &amount_words) ;
-    char matrix[MAX][MAX] ;
+    char matrix[MAX][MAX],
     puzzle(line, collum, matrix) ;
     char word[LENGTH] ;
 

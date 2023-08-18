@@ -91,22 +91,26 @@ int second(char matrix[][MAX], char word[], int i, int j, int k, int line, int c
 
     if (search_left(matrix, word, i, j, k)==1){
         if (compare_left(i, j, matrix, collum, word)==1){
-            printf("A palavra %%s está no texto!", &word) ;
+            printf("A palavra %s está no texto!", word) ;
             return 1 ;
         }
 
     } if (search_up(matrix, word, i, j, k)==1){
         if (compare_up(i, j, matrix, line, word)==1){
-            printf("A palavra %%s está no texto!", &word) ;
+            printf("A palavra %s está no texto!", word) ;
             return 1 ;
         }
 
     } if (search_right(matrix, word, i, j, k)==1){
         if (compare_right(i, j, matrix, collum, word)==1){
-            printf("A palavra %%s está no texto!", &word) ;
+            printf("A palavra %s está no texto!", word) ;
             return 1 ;
         }
-    }
+    } if (search_down(matrix, word, i, j, k)==1){
+        if (compare_down(i, j, matrix, line, word)==1){
+            printf("A palavra %s está no texto!", word) ;
+            return 1 ;
+        }
 
     return 0 ;
 }

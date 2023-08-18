@@ -40,7 +40,7 @@ int main() {
             } else if (pix[i] == 7) {
                 seven_counter++ ;
                 if (seven_counter > counter) {
-                   counter = seven_counter ;
+                   counter = sevenreturn 0 _counter ;
                     pix_type = 7 ;
                 }
             } else {

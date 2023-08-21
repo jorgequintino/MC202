@@ -42,10 +42,14 @@ int compare_left(int i, int j, char matrix[][MAX], int collum, char word[]){
         if (j>=0){
             if (j<collum){
                 w++ ;
-                if (matrix[i][j] != word[w]){ // corrigir idex da palavra
+                if (matrix[i][j] != word[w]){
                     return 0 ;
                 }
-            }
+            } else{
+                return 0 ;
+            } 
+        } else{
+            return 0 ;
         }
     }
     return 1 ;
@@ -60,7 +64,11 @@ int compare_right(int i, int j, char matrix[][MAX], int collum, char word[]){
                 if (matrix[i][j] != word[w]){
                     return 0 ;
                 }
-            }
+            } else{
+                return 0 ;
+            } 
+        } else{
+            return 0 ;
         }
     }
     return 1 ;
@@ -75,7 +83,11 @@ int compare_up(int i, int j, char matrix[][MAX], int line, char word[]){
                 if (matrix[i][j] != word[w]){
                     return 0 ;
                 }
-            }
+            } else{
+                return 0 ;
+            } 
+        } else{
+            return 0 ;
         }
     }        
     return 1 ;
@@ -90,7 +102,11 @@ int compare_down(int i, int j, char matrix[][MAX], int line, char word[]){
                 if (matrix[i][j] != word[w]){
                     return 0 ;
                 }
+            } else{
+                return 0 ;
             }
+        } else{
+            return 0 ;
         }
     }
     return 1 ;
@@ -100,24 +116,20 @@ int second(char matrix[][MAX], char word[], int i, int j, int k, int line, int c
 
     if (search_left(matrix, word, i, j, k)==1){
         if (compare_left(i, j, matrix, collum, word)==1){
-            // printf("A palavra %s está no texto!", word) ;
             return 1 ;
         }
 
     } if (search_up(matrix, word, i, j, k)==1){
         if (compare_up(i, j, matrix, line, word)==1){
-            // printf("A palavra %s está no texto!", word) ;
             return 1 ;
         }
 
     } if (search_right(matrix, word, i, j, k)==1){
         if (compare_right(i, j, matrix, collum, word)==1){
-            // printf("A palavra %s está no texto!", word) ;
             return 1 ;
         }
     } if (search_down(matrix, word, i, j, k)==1){
         if (compare_down(i, j, matrix, line, word)==1){
-            // printf("A palavra %s está no texto!", word) ;
             return 1 ;
         }
     }
@@ -131,7 +143,7 @@ int search_word(int k, int line, int collum, char word[], char matrix[][MAX]){
                 k++ ;
                 if (second(matrix, word, i, j, k, line, collum) == 1){
                     return 1 ;
-                } else if (second(matrix, word, i, j, k, line, collum) == 1){
+                } else if (second(matrix, word, i, j, k, line, collum) == 0){
                     k-- ;
                 }
             }
@@ -158,9 +170,9 @@ int main(){
         int k = 0 ;
         scanf("%s", word) ;
         if (search_word(k, line, collum, word, matrix) == 1){
-            printf("A palavra %s está no texto!\n", word) ;
+            printf("A palavra %s está no texto!", word) ;
         } else if (search_word(k, line, collum, word, matrix) == 0){
-            printf("A palavra %s não está no texto!\n", word) ;            
+            printf("A palavra %s não está no texto!", word) ;            
         }
         clean_word(word) ;
     }

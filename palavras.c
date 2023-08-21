@@ -146,10 +146,6 @@ void clean_word(char word[]){
     }
 }
 
-//  pegar os caracteres e armazenar em possible_words
-// comparar possible word com words
-// if igual, print()
-
 int main(){
     int line, collum, amount_words ;
     scanf("%d %d %d ", &line, &collum, &amount_words) ;
@@ -171,11 +167,3 @@ int main(){
 
     return 0 ;
 }
-
-// int extent(char words[][collum], int line, int collum){
-//     for(int i=0; i<LENGTH; i++){
-//         if (words[i] == "\0"){
-//             return i ;
-//         }
-//     }
-//

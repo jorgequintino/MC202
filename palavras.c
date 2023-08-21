@@ -155,16 +155,16 @@ int main(){
     scanf("%d %d %d ", &line, &collum, &amount_words) ;
     char matrix[MAX][MAX] ;
     puzzle(line, collum, matrix) ;
-    printf('\0') ;
+    printf("\n") ;
     char word[LENGTH] ;
 
     for(int text=1 ;text <= amount_words; text++){
         int k = 0 ;
         scanf("%s", word) ;
         if (search_word(k, line, collum, word, matrix) == 1){
-            printf("A palavra %s está no texto!", word) ;
+            printf("A palavra %s está no texto!\n", word) ;
         } else if (search_word(k, line, collum, word, matrix) == 0){
-            printf("A palavra %s não está no texto!", word) ;            
+            printf("A palavra %s não está no texto!\n", word) ;            
         }
         clean_word(word) ;
     }

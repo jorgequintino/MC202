@@ -3,66 +3,81 @@
 # define LENGTH 21
 
 void puzzle(int line, int collum, char matrix[][MAX]){
+    // This function sets the puzzle, letter by letter.
+    // It is vois. It returns none.
     for(int i=0; i<line; i++)
         for(int j=0; j<collum; j++)
             scanf("%c ", &matrix[i][j]) ;
     printf("\n") ;
 }
 
-int search_left(char matrix[][MAX], char word[], int i, int j, int k){
-    if (matrix[i][j-1] == word[k]){
-        return 1 ;        
-    }
-    return 0 ;
-}
-
-int search_right(char matrix[][MAX], char word[], int i, int j, int k){
-    if (matrix[i][j+1] == word[k]){
-        return 1 ;       
-    }
-    return 0 ;
-}
-
-int search_up(char matrix[][MAX], char word[], int i, int j, int k){
-    if (matrix[i-1][j] == word[k]){
-        return 1 ;        
-    }
-    return 0 ;
-}
-
-int search_down(char matrix[][MAX], char word[], int i, int j, int k){
-    if (matrix[i+1][j] == word[k]){
-        return 1 ;        
-    }
-    return 0 ;
-}
-        
-int compare_left(int i, int j, char matrix[][MAX], int collum, char word[]){
-    int w=-1 ;
-    for(; word[w] != '\0'; j--){
-        if (j>=0){
-            if (j<collum){
-                w++ ;
-                if (matrix[i][j] != word[w]){
-                    return 0 ;
-                }
-            } else{
-                return 0 ;
-            } 
-        } else{
-            return 0 ;
+int search_left(char matrix[][MAX], char word[], int i, int j, int k, int line, int collum){
+    // This function searches if the next letter is at the left side of the
+    // first letter inside the matrix(puzzle).
+    // If so, it returns 1. On the contrary, it returns 0.
+    if (i < line && i>=0){
+        if (j < collum && j>0){
+            if (matrix[i][j-1] == word[k]){
+                return 1 ;
+            }
         }
     }
-    return 1 ;
+    return 0 ;
 }
 
+int search_right(char matrix[][MAX], char word[], int i, int j, int k, int line, int collum){
+    // This function searches if the next letter is at the right side of the 
+    // first letter inside the matrix(puzzle).
+    // If so, it returns 1. On the contrary, it returns 0.
+    if (i < line && i>=0){
+        if (j < collum-1 && j>=0){
+            if (matrix[i][j+1] == word[k]){
+                return 1 ;
+            }
+        }
+    }
+    return 0 ;
+} 
+
+int search_up(char matrix[][MAX], char word[], int i, int j, int k, int line, int collum){
+    // This function searches if the next letter is at above the
+    // first letter inside the matrix(puzzle).
+    // If so, it returns 1. On the contrary, it returns 0.
+    if (i < line && i>0){
+        if (j < collum && j>=0){
+            if (matrix[i-1][j] == word[k]){
+                return 1 ;
+            }
+        }
+    }
+    return 0 ;
+} 
+
+int search_down(char matrix[][MAX], char word[], int i, int j, int k, int line, int collum){
+    // This function searches if the next letter is below the
+    // first letter inside the matrix(puzzle).
+    // If so, it returns 1. On the contrary, it returns 0.
+    if (i < line-1 && i>=0){
+        if (j < collum && j>=0){
+            if (matrix[i+1][j] == word[k]){
+                return 1 ;
+            }
+        }
+    }
+    return 0 ;
+} 
+
 int compare_right(int i, int j, char matrix[][MAX], int collum, char word[]){
-    int w=-1 ;
+    // Once the code has a possible direction the word is, it searches letter
+    // by letter to check if they're compatible with the word.
+    // If any letter doesn't match between puzzle and word or the searching index
+    // is out of reach, the function returns 0. On the contrary, it returns 1.
+    int w=0 ;
     for(; word[w] != '\0'; j++){
         if (j>=0){
             if (j<collum){
                 w++ ;
-                if (matrix[i][j] != word[w]){
+                if (matrix[i][j] != word[w-1]){
                     return 0 ;
                 }
             } else{
@@ -76,12 +91,16 @@ int compare_right(int i, int j, char matrix[][MAX], int collum, char word[]){
 }
 
 int compare_up(int i, int j, char matrix[][MAX], int line, char word[]){
-    int w=-1 ;
+    // Once the code has a possible direction the word is, it searches letter
+    // by letter to check if they're compatible with the word.
+    // If any letter doesn't match between puzzle and word or the searching index
+    // is out of reach, the function returns 0. On the contrary, it returns 1.
+    int w=0 ;
     for(; word[w] != '\0'; i--){
         if (i>=0){
             if (i<line){
                 w++ ;
-                if (matrix[i][j] != word[w]){
+                if (matrix[i][j] != word[w-1]){
                     return 0 ;
                 }
             } else{
@@ -95,12 +114,16 @@ int compare_up(int i, int j, char matrix[][MAX], int line, char word[]){
 }
 
 int compare_down(int i, int j, char matrix[][MAX], int line, char word[]){
-    int w=-1 ;
+    // Once the code has a possible direction the word is, it searches letter
+    // by letter to check if they're compatible with the word.
+    // If any letter doesn't match between puzzle and word or the searching index
+    // is out of reach, the function returns 0. On the contrary, it returns 1.
+    int w=0 ;
     for(; word[w] != '\0'; i++){
         if (i>=0){
             if (i<line){
                 w++ ;
-                if (matrix[i][j] != word[w]){
+                if (matrix[i][j] != word[w-1]){
                     return 0 ;
                 }
             } else{
@@ -114,22 +137,25 @@ int compare_down(int i, int j, char matrix[][MAX], int line, char word[]){
 }
 
 int second(char matrix[][MAX], char word[], int i, int j, int k, int line, int collum){
+    // This function sets the possible directions the word might be and pulls the correct
+    // function for each one of them. If the functions 'search' and 'compare' in those
+    // coordanates finds the word, it returns 1, otherwise it returns 0.
 
-    if (search_left(matrix, word, i, j, k)==1){
+    if (search_left(matrix, word, i, j, k, line, collum)==1){
         if (compare_left(i, j, matrix, collum, word)==1){
             return 1 ;
         }
 
-    } if (search_up(matrix, word, i, j, k)==1){
+    } if (search_up(matrix, word, i, j, k, line, collum)==1){
         if (compare_up(i, j, matrix, line, word)==1){
             return 1 ;
         }
 
-    } if (search_right(matrix, word, i, j, k)==1){
+    } if (search_right(matrix, word, i, j, k, line, collum)==1){
         if (compare_right(i, j, matrix, collum, word)==1){
             return 1 ;
         }
-    } if (search_down(matrix, word, i, j, k)==1){
+    } if (search_down(matrix, word, i, j, k, line, collum)==1){
         if (compare_down(i, j, matrix, line, word)==1){
             return 1 ;
         }
@@ -138,6 +164,11 @@ int second(char matrix[][MAX], char word[], int i, int j, int k, int line, int c
 }
 
 int search_word(int line, int collum, char word[], char matrix[][MAX]){
+    // Fist word pulled by main. It starts the process of searching the
+    // word inserted. It does so by checking the first letter of said word
+    // and comparing it to the puzzle.
+    // It the functions it pulls finds the word, it returns 1, otherwise it
+    // returns 0
     int k=0 ;
     for(int i=0; i<line;i++){
         for(int j=0; j<collum; j++){
@@ -154,42 +185,20 @@ int search_word(int line, int collum, char word[], char matrix[][MAX]){
     return 0 ;
 }
 
-void clean_word(char word[]){
-    for(int i=0; i<LENGTH; i++){
-        word[i] = 'a' ;
-    }
-}
-
-int size(char word[]){
-    for(int i=0; i < LENGTH; i++){
-        if (word[i] == '\0'){
-            return i ;
-        }
-    }
-    return 0 ;
-}
-
 int main(){
     int line, collum, amount_words ;
     scanf("%d %d %d ", &line, &collum, &amount_words) ;
     char matrix[MAX][MAX] ;
     puzzle(line, collum, matrix) ;
-    // printf("\n") ;
     char word[LENGTH] ;
 
     for(int text=1 ;text <= amount_words; text++){
-        // int k = 0 ;
         scanf("%s", word) ;
-        // int scale = size(word) ;
         if (search_word(line, collum, word, matrix) == 1){
-           //  word[scale] = '\0' ;
             printf("A palavra %s está no texto!\n", word) ;
-            // provavelmente ter que fazer uma função pro tamanho e manualmente add \0 no final da string
         } else if (search_word(line, collum, word, matrix) == 0){
-            // word[scale] = '\0' ;
             printf("A palavra %s não está no texto!\n", word) ;            
         }
-        // clean_word(word) ;
     }
 
     return 0 ;

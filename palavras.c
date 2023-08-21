@@ -6,6 +6,7 @@ void puzzle(int line, int collum, char matrix[][MAX]){
     for(int i=0; i<line; i++)
         for(int j=0; j<collum; j++)
             scanf("%c ", &matrix[i][j]) ;
+    printf("\n") ;
 }
 
 int search_left(char matrix[][MAX], char word[], int i, int j, int k){
@@ -136,10 +137,11 @@ int second(char matrix[][MAX], char word[], int i, int j, int k, int line, int c
     return 0 ;
 }
 
-int search_word(int k, int line, int collum, char word[], char matrix[][MAX]){
+int search_word(int line, int collum, char word[], char matrix[][MAX]){
+    int k=0 ;
     for(int i=0; i<line;i++){
         for(int j=0; j<collum; j++){
-            if (matrix[i][j] == word[k]){ //
+            if (matrix[i][j] == word[k]){
                 k++ ;
                 if (second(matrix, word, i, j, k, line, collum) == 1){
                     return 1 ;
@@ -158,23 +160,36 @@ void clean_word(char word[]){
     }
 }
 
+int size(char word[]){
+    for(int i=0; i < LENGTH; i++){
+        if (word[i] == '\0'){
+            return i ;
+        }
+    }
+    return 0 ;
+}
+
 int main(){
     int line, collum, amount_words ;
     scanf("%d %d %d ", &line, &collum, &amount_words) ;
     char matrix[MAX][MAX] ;
     puzzle(line, collum, matrix) ;
-    printf("\n") ;
+    // printf("\n") ;
     char word[LENGTH] ;
 
     for(int text=1 ;text <= amount_words; text++){
-        int k = 0 ;
+        // int k = 0 ;
         scanf("%s", word) ;
-        if (search_word(k, line, collum, word, matrix) == 1){
-            printf("A palavra %s está no texto!", word) ;
-        } else if (search_word(k, line, collum, word, matrix) == 0){
-            printf("A palavra %s não está no texto!", word) ;            
+        // int scale = size(word) ;
+        if (search_word(line, collum, word, matrix) == 1){
+           //  word[scale] = '\0' ;
+            printf("A palavra %s está no texto!\n", word) ;
+            // provavelmente ter que fazer uma função pro tamanho e manualmente add \0 no final da string
+        } else if (search_word(line, collum, word, matrix) == 0){
+            // word[scale] = '\0' ;
+            printf("A palavra %s não está no texto!\n", word) ;            
         }
-        clean_word(word) ;
+        // clean_word(word) ;
     }
 
     return 0 ;

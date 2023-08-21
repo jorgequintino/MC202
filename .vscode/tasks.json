@@ -3,7 +3,11 @@
         {
             "type": "cppbuild",
             "label": "C/C++: gcc arquivo de build ativo",
+<<<<<<< HEAD
             "command": "/usr/lib64/ccache/gcc",
+=======
+            "command": "/usr/bin/gcc",
+>>>>>>> fd6fd90 (f)
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",

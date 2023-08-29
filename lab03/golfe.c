@@ -1,11 +1,20 @@
 # include <stdio.h>
+# include <stdlib.h>
+# include "partida.h"
 
 int main(){
-    int games, players, circuits, equipaments;
-    scanf("%f ", games) ;
-    scanf("%f %f %f ", players, circuits, equipaments) ;
-    // para cada circuits tem players + 1 dados
-    // (numero circuito, jogada dos jogadores)
+    int games ;
+    scanf("%d ", &games) ;
+    
+    for(int numb=1; numb<=games;numb++){
+        match game = read_match(numb) ;
+        int hardest_tour = hardest_circuit(game) ;
+        int* data = gamers_plays(game) ;
+        print_match(game, data, hardest_tour) ;
+        free_match(game) ;
+        free(data) ;
 
-    float price = 10*circuits + 17.5*equipaments ;
+    }
+
+
 }

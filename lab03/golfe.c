@@ -13,8 +13,5 @@ int main(){
         print_match(game, data, hardest_tour) ;
         free_match(game) ;
         free(data) ;
-
     }
-
-
 }

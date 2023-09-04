@@ -3,13 +3,14 @@
 # include <stdlib.h>
 
 int main(){
-    int length, change, line, collum, new_element ;
+    int length, change=0, line, collum, new_element ;
     scanf("%d ", &length) ;
     p_square square ;
     square = create_square(length) ;
-    print_first(square) ;
+    print_processing(length, square) ;
+    compare_quater(square) ;
     cut_square(square) ;
-    print_processing(square) ;
+    print_processing(length, square) ;
     
     if (square->length > 1){
         scanf("%d ", &change) ;        
@@ -18,8 +19,9 @@ int main(){
     while (change == 1) {
         scanf("%d %d %d ", &line, &collum, &new_element) ;
         change_element(line, collum, new_element, square) ;
+        compare_quater(square) ;
         cut_square(square) ;
-        print_processing(square) ;
+        print_processing(length, square) ;
         if (square->length > 1){
             scanf("%d ", &change) ;
             if (change==0){
@@ -31,5 +33,6 @@ int main(){
     }
 
     free_square(square) ;
+    
     return 0 ;
 }

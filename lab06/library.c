@@ -15,7 +15,7 @@ p_library setting_library(){
     library = malloc(sizeof(struct library)) ;
     library->first = 1 ;
     library->last = 1 ;
-    library->book_removed = malloc(sizeof(struct book));
+    library->book_removed = create_book();
     library->book_removed->name[0] = '\0' ;
     library->book_removed->next = NULL ;
     library->book_added = NULL ;
@@ -34,7 +34,7 @@ RETURN:
 p_book add_book_front(p_library library){
 
     p_book new_book;
-    new_book = malloc(sizeof(struct book));
+    new_book = create_book();
     fgets(new_book->name, 55, stdin);
     new_book->name[strlen(new_book->name)-1]='\0';
 
@@ -56,7 +56,7 @@ RETURN:
 void add_book_last(p_library library, int final){
 
     p_book new_book ;
-    new_book = malloc(sizeof(struct book));
+    new_book = create_book() ;
     fgets(new_book->name, 55, stdin);
     new_book->name[strlen(new_book->name)-1]='\0';
 
@@ -89,7 +89,7 @@ void add_book_last(p_library library, int final){
 
             if (library->first == 1){
                 // if the last book removed was on the top of the pile.
-                free(library->book_added) ;
+                free_book(library->book_added) ;
                 new_book->next = library->book_list ;
                 library->book_list = new_book ;
 
@@ -102,7 +102,7 @@ void add_book_last(p_library library, int final){
                         break ;        
                     }
                 }
-                free(library->support) ;
+                free_book(library->support) ;
 
             } else{
                 // if the last book removed was in the middle of the pile.
@@ -158,7 +158,7 @@ void remove_book(p_library library){
                     library->support = book ;
                     // if the removed book are the last one, the support holds its address for a while.
                 } else{
-                    free(book) ;                       
+                    free_book(book) ;                       
                 }
 
                 break ;
@@ -236,11 +236,11 @@ void free_library(p_library library){
 
     while (book != NULL) {
         p_book next_book = book->next;
-        free(book) ;
+        free_book(book) ;
         book = next_book ;
     }
 
-    free(library->book_removed) ;
+    free_book(library->book_removed) ;
     free(library) ;
 }
 

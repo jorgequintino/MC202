@@ -1,10 +1,4 @@
-# define MAX 55
-
-typedef struct book *p_book ;
-struct book{
-    char name[MAX] ;
-    p_book next ;
-} ;
+# include "book.h"
 
 typedef struct library *p_library ;
 struct library{

@@ -12,3 +12,12 @@ $(EXEC): $(OBJS)
 
 clean:
 	rm -rf $(OBJS)
+
+
+
+
+
+
+
+// sets "arguments: []"
+// sets "command: 'make'"
